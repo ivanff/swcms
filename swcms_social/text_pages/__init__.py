@@ -1,1 +1,1 @@
-default_app_config = 'text_pages.apps.TextPagesConfig'
+default_app_config = 'swcms_social.text_pages.apps.TextPagesConfig'

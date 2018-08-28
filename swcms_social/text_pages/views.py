@@ -1,6 +1,6 @@
 from django.views.generic import DetailView
 
-from text_pages.models import Pages
+from .models import Pages
 
 
 class PagesDetailView(DetailView):

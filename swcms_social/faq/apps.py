@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class FaqConfig(AppConfig):
-    name = 'faq'
+    name = 'swcms_social.faq'
     verbose_name = "Помощ"

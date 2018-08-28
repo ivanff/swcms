@@ -1,0 +1,1 @@
+default_app_config = 'swcms_social.faq.apps.FaqConfig'
