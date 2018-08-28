@@ -1,1 +1,1 @@
-# swcms
+# swcms-social
