@@ -1,15 +1,17 @@
 import setuptools
 
+from swcms_social import __author__, __version__, __license__
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="swcms-social",
-    version="0.0.1",
-    author="Ivan Fedoseev",
+    version=__version__,
+    author=__author__,
     author_email="agestart@gmail.com",
     description="Collect of Django apps, shared part of likeis and posticas",
-    license='MIT',
+    license=__license__,
     long_description=long_description,
     url="https://github.com/ivanff/swcms-social",
     packages=setuptools.find_packages(),
