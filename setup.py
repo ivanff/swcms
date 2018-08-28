@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="swcms_social",
+    name="swcms-social",
     version="0.0.1",
     author="Ivan Fedoseev",
     author_email="agestart@gmail.com",
