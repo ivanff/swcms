@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sandbox</title>
+	<meta name="robots" content="none"/>
+	<meta name="robots" content="noindex, nofollow"/>
+</head>
+<body>
+
+<ul>
+	<li>
+		<a href="?order={% if order == 'name' %}-{% endif %}name">По имени {% if order.0 == '-' %}up{% endif %}</a>&nbsp;&nbsp;&nbsp;
+		<a href="?order={% if order == 'created' %}-{% endif %}created">По дате создания {% if order.0 == '-' %}up{% endif %}</a>&nbsp;&nbsp;&nbsp;
+		<a href="?order={% if order == 'changed' %}-{% endif %}changed">По дате изменения {% if order.0 == '-' %}up{% endif %}</a>&nbsp;&nbsp;&nbsp;
+	</li>
+</ul>
+
+<ul>
+	{% if sub_dir %}
+		<li>
+		<a href="../" target="_self">
+			<b>.. { {{ sub_dir }} }</b>
+		</a>
+		</li>
+	{% endif %}
+
+	{% for i in dirs %}
+		<li>
+			<a href="{% url 'sandbox:sandbox' file_path=i.url %}" target="_self">
+				<b>{{ i.dir_name }}</b>
+			</a>
+		</li>
+	{% endfor %}
+	{% for i in files %}
+		<li>
+			<a href="{% url 'sandbox:sandbox' file_path=i.url %}" target="_blank">
+				{{ i.file_name }}
+			</a>
+		</li>
+	{% endfor %}
+</ul>
+</body>
+</html>
