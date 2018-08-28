@@ -1,11 +1,7 @@
 from django.contrib import admin
 
 from .models import Faq, Subject
-
-try:
-    from utils.admin import BaseAdmin
-except ImportError:
-    BaseAdmin = admin.ModelAdmin
+from swcms_social._utils.admin import BaseAdmin
 
 
 @admin.register(Subject)

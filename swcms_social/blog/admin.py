@@ -1,10 +1,5 @@
 from django.contrib import admin
-
-try:
-    from utils.admin import BaseAdmin
-except ImportError:
-    BaseAdmin = admin.ModelAdmin
-    
+from swcms_social._utils.admin import BaseAdmin
 from .models import Tags, Posts
 
 admin.site.register(Tags)

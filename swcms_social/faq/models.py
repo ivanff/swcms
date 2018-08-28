@@ -1,10 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-try:
-    from utils.models import AbstractTextModel
-except ImportError:
-    AbstractTextModel = models.Model
+from swcms_social._utils.models import AbstractTextModel
 
 
 class Subject(models.Model):

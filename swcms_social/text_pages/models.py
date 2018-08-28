@@ -3,15 +3,7 @@ from django.core.validators import RegexValidator
 
 import re
 
-try:
-    from utils.models import AbstractTextModel
-except ImportError:
-    AbstractTextModel = models.Model
-
-try:
-    from utils.models import SeoModel
-except ImportError:
-    SeoModel = models.Model
+from swcms_social._utils.models import AbstractTextModel, SeoModel
 
 
 class PagesQuerySet(models.QuerySet):

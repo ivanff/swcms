@@ -2,15 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 
-try:
-    from utils.models import AbstractTextModel
-except ImportError:
-    AbstractTextModel = models.Model
-
-try:
-    from utils.models import SeoModel
-except ImportError:
-    SeoModel = models.Model
+from swcms_social._utils.models import AbstractTextModel, SeoModel
 
 
 class Tags(models.Model):
@@ -37,7 +29,7 @@ class PostsQuerySet(models.QuerySet):
         return super().filter(*args, **kwargs)
 
 
-class Posts(SeoModel, AbstractTextModel):
+class Posts(AbstractTextModel, SeoModel):
     tags = models.ManyToManyField(Tags, blank=True)
     anons = models.TextField("Анонс", blank=True, default="")
 
