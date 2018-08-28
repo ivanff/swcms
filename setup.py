@@ -16,7 +16,7 @@ setuptools.setup(
     install_requires=(
             'django>=2.0',
             'django-ckeditor>=5.4.0',
-            'rest_framework>=3.7.7',
+            'djangorestframework>=3.7.7',
     ),
     classifiers=(
         'Development Status :: 4 - Alpha',
