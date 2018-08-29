@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.contrib import admin
 from django.forms.widgets import HiddenInput
+from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.safestring import mark_safe
 
@@ -57,3 +58,13 @@ def admin_change_link(field_name):
     func.__name__ = "%s_%s" % (field_name, get_random_string(6))
     func.admin_order_field = field_name
     return func
+
+
+def list_display_login_as(obj):
+    return mark_safe("<a href='%s' target='_blank'>Login as %s</a>" % (
+        reverse('login_as', args=(obj.id,)),
+        obj.get_full_name(),
+    ))
+
+
+list_display_login_as.short_description = 'Login As'
