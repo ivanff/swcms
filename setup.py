@@ -19,6 +19,7 @@ setuptools.setup(
             'django>=2.0',
             'django-ckeditor>=5.4.0',
             'djangorestframework>=3.7.7',
+            'django-tz-detect',
     ),
     classifiers=(
         'Development Status :: 4 - Alpha',
