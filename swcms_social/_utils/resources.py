@@ -26,5 +26,5 @@ for tz_name, tz_locale_names in __TIMEZONES_DICT.items():
             tz_name, "(GMT%s) %s" % (format_gmt_offset(get_gmt_offset(tz_name)), tz_locale_name)
         ])
 
-TIMEZONES = list(sorted(TIMEZONES, key=lambda item: get_gmt_offset(item[0])))
+TIMEZONES = sorted(TIMEZONES, key=lambda item: get_gmt_offset(item[0]))
 
