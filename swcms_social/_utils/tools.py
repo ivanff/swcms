@@ -1,5 +1,7 @@
 import datetime
-
+import requests
+from django.conf import settings
+from ipware import get_client_ip
 import pytz
 
 
@@ -21,3 +23,23 @@ def format_gmt_offset(offset):
         abs(offset),
         abs(60 * (offset - int(offset)))
     )
+
+
+def is_recaptcha_valid(request, field_name='recaptcha'):
+    """
+    Verify if the response for the Google recaptcha is valid.
+    """
+    if hasattr(request, 'data'):
+        data = request.data
+    else:
+        data = request.POST
+
+    return requests.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        data={
+            'secret': settings.GOOGLE['recaptcha']['secret'],
+            'response': data.get(field_name),
+            'remoteip': get_client_ip(request)
+        },
+        verify=True
+    ).json().get("success", False)
