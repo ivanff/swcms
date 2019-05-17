@@ -1,5 +1,6 @@
 import datetime
 import requests
+import os
 from django.conf import settings
 from ipware import get_client_ip
 import pytz
@@ -43,3 +44,14 @@ def is_recaptcha_valid(request, field_name='recaptcha'):
         },
         verify=True
     ).json().get("success", False)
+
+
+def _update_filename(instance, filename, path):
+    sub_dir_name = os.path.dirname(filename)
+    filename = os.path.basename(filename)
+    if sub_dir_name:
+        if not os.path.exists(settings.MEDIA_ROOT + '/' + path + '/' + sub_dir_name):
+            os.mkdir(settings.MEDIA_ROOT + '/' + path + '/' + sub_dir_name)
+        return path + sub_dir_name + '/' + filename
+    return path + filename
+
