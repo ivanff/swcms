@@ -5,7 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from swcms_social._utils.tools import _update_filename
+from swcms_social._utils.tools import update_filename
 
 
 class AbstractTextModel(models.Model):
@@ -35,17 +35,16 @@ class SeoModel(models.Model):
 
 
 def attachment_upload(path):
-    return partial(_update_filename, path=path)
+    return partial(update_filename, path=path)
 
 
 class Attachment(models.Model):
     file = models.FileField(u'Файл', upload_to=attachment_upload('attachments/'))
     is_image = models.BooleanField(u"Изображение", default=False, editable=False)
-    title = models.CharField(u'Название', blank=True, default="", max_length=255)
-    desc = models.TextField(u'Описание', blank=True, default="")
+
 
     object_id = models.PositiveIntegerField()
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     content_object = GenericForeignKey()
 
     def get_file_format(self):

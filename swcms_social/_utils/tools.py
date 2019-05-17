@@ -46,7 +46,7 @@ def is_recaptcha_valid(request, field_name='recaptcha'):
     ).json().get("success", False)
 
 
-def _update_filename(instance, filename, path):
+def update_filename(instance, filename, path):
     sub_dir_name = os.path.dirname(filename)
     filename = os.path.basename(filename)
     if sub_dir_name:
