@@ -42,7 +42,6 @@ class Attachment(models.Model):
     file = models.FileField(u'Файл', upload_to=attachment_upload('attachments/'))
     is_image = models.BooleanField(u"Изображение", default=False, editable=False)
 
-
     object_id = models.PositiveIntegerField()
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     content_object = GenericForeignKey()
