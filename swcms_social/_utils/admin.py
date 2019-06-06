@@ -1,10 +1,13 @@
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.contrib import admin
+from django.core.exceptions import PermissionDenied
 from django.forms.widgets import HiddenInput
+from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.safestring import mark_safe
 
+from .tools import UnicodeWriter
 from .templatetags._utils_tags import admin_url
 
 
@@ -68,3 +71,31 @@ def list_display_login_as(obj):
 
 
 list_display_login_as.short_description = 'Login As'
+
+
+def export_as_csv(modeladmin, request, queryset):
+    """
+    Generic csv export admin action.
+    """
+    if not request.user.is_staff:
+        raise PermissionDenied
+    opts = modeladmin.model._meta
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=%s.csv' % str(opts).replace('.', '_')
+    writer = UnicodeWriter(response)
+    field_names = [field.name for field in opts.fields]
+    # Write a first row with header information
+    writer.writerow(field_names)
+    # Write data rows
+    for obj in queryset:
+        row = []
+        for field in field_names:
+            if field in field_names:
+                val = getattr(obj, field)
+                if callable(val):
+                    val = val()
+                val = u"%s" % (val,)
+                row.append(val)
+        writer.writerow(row)
+    return response
+export_as_csv.short_description = u'Экспортировать выбранное в формате электронной таблицы csv'

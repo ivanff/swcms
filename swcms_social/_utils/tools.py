@@ -4,6 +4,7 @@ import os
 from django.conf import settings
 from ipware import get_client_ip
 import pytz
+import csv
 
 
 def get_gmt_offset(tz):
@@ -55,3 +56,34 @@ def update_filename(instance, filename, path):
         return path + sub_dir_name + '/' + filename
     return path + filename
 
+
+class _UnicodeWriteWrapper(object):
+    """Simple write() wrapper that converts unicode to bytes."""
+
+    def __init__(self, binary, encoding, errors):
+        self.binary = binary
+        self.encoding = encoding
+        self.errors = errors
+
+    def write(self, string):
+        return self.binary.write(string.encode(self.encoding, self.errors))
+
+
+class UnicodeWriter(object):
+    def __init__(self, f, dialect=csv.excel, encoding='utf-8', errors='strict',
+                 *args, **kwds):
+        if f is None:
+            raise TypeError
+
+        f = _UnicodeWriteWrapper(f, encoding=encoding, errors=errors)
+        self.writer = csv.writer(f, dialect, *args, **kwds)
+
+    def writerow(self, row):
+        return self.writer.writerow(row)
+
+    def writerows(self, rows):
+        return self.writer.writerows(rows)
+
+    @property
+    def dialect(self):
+        return self.writer.dialect
