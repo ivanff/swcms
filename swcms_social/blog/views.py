@@ -1,3 +1,4 @@
+from django.db.models import Count, Prefetch
 from django.views.generic import ListView, DetailView
 from .models import Posts, Tags
 
@@ -19,12 +20,18 @@ class PostListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         kwargs['current_tags'] = self.current_tags
-        kwargs['tags'] = Tags.objects.filter(posts__isnull=False).distinct()
+        kwargs['tags'] = Tags.objects.filter(posts__isnull=False).annotate(posts_count=Count('posts')).distinct()
         return super().get_context_data(object_list=object_list, **kwargs)
 
 
 class PostDetailView(DetailView):
     template_name = 'blog/post_detail.html'
-    queryset = Posts.objects.active().prefetch_related('tags')
+    queryset = Posts.objects.active().prefetch_related(Prefetch('tags', queryset=Tags.objects.annotate(posts_count=Count('posts'))))
+
+    def get_context_data(self, **kwargs):
+        kwargs['tags'] = Tags.objects.filter(posts__isnull=False).annotate(posts_count=Count('posts')).distinct()
+        return super().get_context_data(**kwargs)
+
+
 
 

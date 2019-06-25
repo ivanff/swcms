@@ -1,8 +1,10 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 
-from swcms_social._utils.models import AbstractTextModel, SeoModel
+from utils.models import Attachment
+from .._utils.models import AbstractTextModel, SeoModel
 
 
 class Tags(models.Model):

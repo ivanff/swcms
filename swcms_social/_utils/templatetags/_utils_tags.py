@@ -7,6 +7,8 @@ import json
 
 from django.utils.html import escapejs
 
+from ..tools import chunks
+
 register = template.Library()
 
 
@@ -32,3 +34,13 @@ def messages_to_json(context):
         if result.setdefault(m.tags, item) != item:
             result[m.tags].extend(item)
     return escapejs(json.dumps(result))
+
+
+@register.filter('groupper')
+def _grouper(arr, n):
+    result = list(
+        chunks(arr, n)
+    )
+    if len(result) == 0:
+        return [()] * n
+    return result

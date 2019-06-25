@@ -1,4 +1,7 @@
 import datetime
+import math
+from itertools import zip_longest, repeat, chain
+
 import requests
 import os
 from django.conf import settings
@@ -87,3 +90,8 @@ class UnicodeWriter(object):
     @property
     def dialect(self):
         return self.writer.dialect
+
+
+def chunks(l, n):
+    chunksize = int(math.ceil(len(l) / n))
+    return (l[i * chunksize:i * chunksize + chunksize] for i in range(n))

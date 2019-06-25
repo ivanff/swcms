@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class BlogConfig(AppConfig):
-    name = 'blog'
+    name = 'swcms_social.blog'
     verbose_name = "Блог"
