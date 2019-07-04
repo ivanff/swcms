@@ -15,7 +15,7 @@ class AbstractTextModel(models.Model):
     is_active = models.BooleanField("Активен", default=True)
 
     def __str__(self):
-        return self.h1 or str(self.id)
+        return self.h1 or str(self.pk)
 
     class Meta:
         ordering = ('-id',)
