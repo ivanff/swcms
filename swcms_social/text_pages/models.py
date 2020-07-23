@@ -39,7 +39,7 @@ class Pages(AbstractTextModel, SeoModel):
 
 class Snippet(models.Model):
     slug = models.SlugField()
-    content = RichTextUploadingField(blank=True, config_name=settings.CKEDITOR_CONFIGS.get('snippet', 'default'))
+    content = RichTextUploadingField(blank=True)
     tpl = models.TextField(blank=True)
 
     def __str__(self):
