@@ -11,4 +11,4 @@ class PagesAdmin(BaseAdmin):
 
 @admin.register(Snippet)
 class SnippetAdmin(BaseAdmin):
-    list_filter = ('site',)
+    view_on_site = False
