@@ -21,6 +21,7 @@ setuptools.setup(
             'djangorestframework>=3.7.7',
             'django-tz-detect',
             'django-ipware',
+            'django-decorator-include',
             'pytz',
             'Babel',
     ),
@@ -33,6 +34,7 @@ setuptools.setup(
         'Framework :: Django',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
+        'Framework :: Django :: 3.0',
     ),
     include_package_data = True,
 )
