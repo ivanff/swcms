@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils.safestring import mark_safe
 
-from text_pages.models import Snippet
+from swcms_social.text_pages.models import Snippet
 
 register = template.Library()
 
