@@ -1,3 +1,5 @@
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.conf import settings
 from django.db import models
 from django.core.validators import RegexValidator
 
@@ -34,3 +36,15 @@ class Pages(AbstractTextModel, SeoModel):
         verbose_name_plural = "Страницы"
         ordering = ('-created',)
 
+
+class Snippet(models.Model):
+    slug = models.SlugField()
+    content = RichTextUploadingField(blank=True, config_name=settings.CKEDITOR_CONFIGS.get('snippet', 'default'))
+    tpl = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.slug
+
+    class Meta:
+        verbose_name = 'сниппет'
+        verbose_name_plural = 'сниппеты'
