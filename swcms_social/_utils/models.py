@@ -4,6 +4,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.template.defaultfilters import striptags, truncatechars
 
 from swcms_social._utils.tools import update_filename
 
@@ -15,7 +16,7 @@ class AbstractTextModel(models.Model):
     is_active = models.BooleanField("Активен", default=True)
 
     def __str__(self):
-        return self.h1 or str(self.pk)
+        return self.h1 or truncatechars(striptags(self.text), 20) or str(self.pk)
 
     class Meta:
         ordering = ('-id',)
